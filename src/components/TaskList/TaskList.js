@@ -12,6 +12,7 @@ class TodoList extends Component {
       const { id, ...items } = item
       return (
         <TodoListItem
+          key={id}
           {...items}
           onDelete={() => onDelete(id)}
           onComplete={() => onComplete(id)}
