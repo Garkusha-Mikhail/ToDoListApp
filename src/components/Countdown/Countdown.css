@@ -1,0 +1,17 @@
+.started {
+  background-color: aquamarine;
+}
+.icon-pause:after {
+  content: '⏸';
+}
+
+.icon-play:after {
+  content: '▶';
+}
+.title {
+  width: 45%;
+}
+
+.description {
+  width: 37%;
+}

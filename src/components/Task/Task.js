@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
 import Timer from '../timer/timer'
+import Countdown from '../Countdown/Countdown'
 import './Task.css'
 
 class TodoListItem extends Component {
@@ -38,7 +39,7 @@ class TodoListItem extends Component {
   }
 
   render() {
-    const { task, onDelete, onComplete, active } = this.props
+    const { task, min, sec, onDelete, onComplete, active, id } = this.props
     let classNames = ''
     if (!active) {
       classNames = 'completed'
@@ -66,7 +67,8 @@ class TodoListItem extends Component {
             <div className="view">
               <input onClick={onComplete} type="checkbox" className="toggle" />
               <label>
-                <span className="description">{task}</span>
+                <span className="title">{task}</span>
+                <Countdown min={min} sec={sec} id={id} />
                 <Timer />
               </label>
               <button className="icon icon-edit" onClick={this.onEdit} />

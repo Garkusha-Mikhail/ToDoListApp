@@ -6,42 +6,73 @@ import './NewTaskForm.css'
 class Header extends Component {
   constructor(props) {
     super(props)
-    this.state = { task: '' }
+    this.state = { task: '', min: '', sec: '' }
   }
 
   static defaultProps = {
     onAddItem: () => {},
   }
 
-  onValueChange = (e) => {
+  onTaskChange = (e) => {
     this.setState({
       task: e.target.value,
     })
   }
+  onMinChange = (e) => {
+    this.setState({
+      min: e.target.value,
+    })
+  }
+  onSecChange = (e) => {
+    this.setState({
+      sec: e.target.value,
+    })
+  }
 
   onSubmit = (e) => {
+    const { task, min, sec } = this.state
+    console.log('press')
     e.preventDefault()
     e.target.reset()
     if (this.state.task.length > 0) {
-      this.props.onAddItem(this.state.task)
+      this.props.onAddItem(task, min, sec)
     }
     this.setState({
       task: '',
+      min: '',
+      sec: '',
     })
   }
 
   render() {
-    const { task } = this.state
+    const { task, min, sec } = this.state
     return (
       <header className="header">
         <h1>todos</h1>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} className="new-todo-form">
+          <button className="hidden" />
           <input
-            onChange={this.onValueChange}
+            onChange={this.onTaskChange}
             value={task}
             type="text"
             className="new-todo"
-            placeholder="What needs to be done?"
+            placeholder="Task"
+            autoFocus
+          />
+          <input
+            onChange={this.onMinChange}
+            value={min}
+            type="number"
+            className="new-todo"
+            placeholder="min"
+            autoFocus
+          />
+          <input
+            onChange={this.onSecChange}
+            value={sec}
+            type="number"
+            className="new-todo"
+            placeholder="sec"
             autoFocus
           />
         </form>

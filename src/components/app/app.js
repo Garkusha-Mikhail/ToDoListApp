@@ -10,30 +10,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [
-        {
-          task: 'Remove Task1',
-          active: true,
-          key: 1,
-          id: 1,
-        },
-        {
-          task: 'Remove Task2',
-          active: true,
-          key: 2,
-          id: 2,
-        },
-        {
-          task: 'Remove Task3',
-          active: true,
-          key: 3,
-          id: 3,
-        },
-      ],
+      data: [],
       filter: 'all',
     }
-    this.maxKey = 4
-    this.maxId = 4
+    this.maxKey = 1
+    this.maxId = 1
   }
 
   deleteItem = (id) => {
@@ -53,13 +34,16 @@ class App extends Component {
     }))
   }
 
-  addItem = (task) => {
+  addItem = (task, min, sec) => {
     const newItem = {
       task,
+      min,
+      sec,
       active: true,
       key: this.maxKey++,
       id: this.maxId++,
     }
+
     this.setState(({ data }) => {
       const newArr = [...data, newItem]
       return {
