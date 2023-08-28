@@ -6,7 +6,7 @@ import './NewTaskForm.css'
 class Header extends Component {
   constructor(props) {
     super(props)
-    this.state = { task: '', min: '', sec: '' }
+    this.state = { task: '', hour: '', min: '', sec: '' }
   }
 
   static defaultProps = {
@@ -30,15 +30,16 @@ class Header extends Component {
   }
 
   onSubmit = (e) => {
-    const { task, min, sec } = this.state
+    const { task, hour, min, sec } = this.state
     console.log('press')
     e.preventDefault()
     e.target.reset()
     if (this.state.task.length > 0) {
-      this.props.onAddItem(task, min, sec)
+      this.props.onAddItem(task, hour, min, sec)
     }
     this.setState({
       task: '',
+      hour: '',
       min: '',
       sec: '',
     })

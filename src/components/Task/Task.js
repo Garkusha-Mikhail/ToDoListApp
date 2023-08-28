@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable import/namespace */
+/* eslint-disable import/no-named-as-default */
 import { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
@@ -39,7 +42,7 @@ class TodoListItem extends Component {
   }
 
   render() {
-    const { task, min, sec, onDelete, onComplete, active, id } = this.props
+    const { task, min, sec, onDelete, onComplete, active, id, taskSaveTime } = this.props
     let classNames = ''
     if (!active) {
       classNames = 'completed'
@@ -68,7 +71,7 @@ class TodoListItem extends Component {
               <input onClick={onComplete} type="checkbox" className="toggle" />
               <label>
                 <span className="title">{task}</span>
-                <Countdown min={min} sec={sec} id={id} />
+                <Countdown min={min} sec={sec} active={active} id={id} taskSaveTime={taskSaveTime} />
                 <Timer />
               </label>
               <button className="icon icon-edit" onClick={this.onEdit} />

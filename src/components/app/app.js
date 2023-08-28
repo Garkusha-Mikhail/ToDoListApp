@@ -34,11 +34,13 @@ class App extends Component {
     }))
   }
 
-  addItem = (task, min, sec) => {
+  addItem = (task, hour, min, sec) => {
     const newItem = {
       task,
+      hour,
       min,
       sec,
+
       active: true,
       key: this.maxKey++,
       id: this.maxId++,
@@ -83,6 +85,17 @@ class App extends Component {
       }),
     }))
   }
+  taskSaveTime = (id, hour, min, sec) => {
+    console.log(`method started with ${id} ${hour} ${min} ${sec}`)
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
+        if (item.id === id) {
+          return { ...item, hour, min, sec }
+        }
+        return item
+      }),
+    }))
+  }
 
   render() {
     const { data, filter } = this.state
@@ -95,6 +108,7 @@ class App extends Component {
         <section className="main">
           <TodoList
             data={visibleData}
+            taskSaveTime={this.taskSaveTime}
             onComplete={this.onComplete}
             onDelete={this.deleteItem}
             taskEdit={this.taskEdit}

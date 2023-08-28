@@ -2,6 +2,7 @@
 // eslint-disable-next-line prettier/prettier
 import { Component } from 'react'
 import './Countdown.css'
+
 class Countdown extends Component {
   constructor(props) {
     super(props)
@@ -14,20 +15,25 @@ class Countdown extends Component {
     }
     this.startTimer = () => {
       const { startedTimer, finished } = this.state
-      const { id } = this.props
+      const { taskSaveTime, id } = this.props
+
       console.log(`timer ${id} started`)
+
       if (startedTimer) {
         return
       }
-      this.setState({ startedTimer: true })
 
+      this.setState({ startedTimer: true })
       this.timer = setInterval(() => {
-        const { taskHour, taskMin, taskSec } = this.state
-        console.log(`interval ${id} started`)
+        if (!this.props.active) {
+          this.pauseTimer()
+        }
+        const { taskHour, taskMin, taskSec, startedTimer } = this.state
+        console.log(this.props.active)
+
         let hourLeft = taskHour
         let minLeft = taskMin
         let secLeft = taskSec
-        console.log(`left ${hourLeft} ${minLeft} ${secLeft}`)
         if (finished) {
           console.log(`task ${id} finished`)
         }
@@ -49,6 +55,8 @@ class Countdown extends Component {
           secLeft -= 1
         }
         this.setState({ taskHour: hourLeft, taskMin: minLeft, taskSec: secLeft })
+        console.log(`startred ${startedTimer}`)
+        taskSaveTime(id, taskHour, taskMin, taskSec)
       }, 1000)
     }
 
@@ -63,10 +71,10 @@ class Countdown extends Component {
     const { min, sec } = this.props
 
     const hours = Math.floor(min / 60)
-    const fomatedMin = hours ? (min % 60) + Math.floor(sec / 60) : Math.floor(sec / 60) + +min
+    const formatedMin = hours ? (min % 60) + Math.floor(sec / 60) : Math.floor(sec / 60) + +min
     const formatedSec = sec % 60 ? sec : 0
 
-    this.setState({ taskHour: hours, taskMin: fomatedMin, taskSec: formatedSec })
+    this.setState({ taskHour: hours, taskMin: formatedMin, taskSec: formatedSec })
   }
 
   componentWillUnmount() {
@@ -80,6 +88,7 @@ class Countdown extends Component {
       <div className="description">
         <button
           type="button"
+          disabled={!this.props.active ? true : false}
           className={`icon icon-play ${startedTimer ? 'started' : null}`}
           aria-label="play"
           onClick={this.startTimer}

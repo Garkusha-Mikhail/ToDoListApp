@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable import/namespace */
+/* eslint-disable import/no-named-as-default */
 import { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
@@ -7,11 +10,12 @@ import './TaskList.css'
 
 class TodoList extends Component {
   render() {
-    const { data, onDelete, onComplete, taskEdit } = this.props
+    const { data, onDelete, onComplete, taskEdit, taskSaveTime } = this.props
     const elements = data.map((item) => {
       const { id, ...items } = item
       return (
         <TodoListItem
+          taskSaveTime={taskSaveTime}
           key={id}
           {...items}
           onDelete={() => onDelete(id)}
